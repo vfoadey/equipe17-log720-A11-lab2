@@ -1,5 +1,5 @@
 
-<h2>REPERTOIRES</h2>
+<h3>REPERTOIRES</h3>
 
 Après avoir décompressé ce fichier, vous obtenez les répertoires suivants:
   
@@ -19,6 +19,7 @@ Après avoir décompressé ce fichier, vous obtenez les répertoires suivants:
   +-pom.xml : fichier de configuration de l'application
   </code></pre>
   
+ <h3>INSTALLATION</h3>
  
  Avant de d'exécuter l'application, assurez vous que vous avez les outils nécessaire installés:
 
