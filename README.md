@@ -3,7 +3,8 @@
 
 Après avoir décompressé ce fichier, vous obtenez les répertoires suivants:
   
-  <pre><code>   +
+  <pre><code>   
+  +
   +-README.md                  : le fichier que vous êtes en train de lire
   |
   +-src 
