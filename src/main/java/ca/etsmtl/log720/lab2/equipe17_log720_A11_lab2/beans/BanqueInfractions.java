@@ -1,130 +1,149 @@
 package ca.etsmtl.log720.lab2.equipe17_log720_A11_lab2.beans;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 public class BanqueInfractions {
-	
-	private static final String SAVE_FILE = "../../data/BanqueInfraction.txt";
 
-	private CollectionInfractionsImpl _collectionInfraction;
+	private DataSource ds = null;
+	private Connection conn = null;
+	private Statement stmt = null;
+	private String queryString;
+	private CollectionInfractions _collectionInfractions;
 
-	public BanqueInfractionsImpl() {
-		_collectionInfraction = new CollectionInfractionsImpl();
-		initData();
+	public BanqueInfractions() {
+		this._collectionInfractions = new CollectionInfractions();
+		this.initData();
 	}
 
-	public CollectionInfraction infractions() {
-		return toCollectionInfractionCORBA(this._collectionInfraction);
+	public CollectionInfractions infractions() {
+		return this._collectionInfractions;
 	}
 
-	public CollectionInfraction trouverInfractionsParDossier(Dossier mydossier) {
-		CollectionInfractionsImpl collectionInfraction = new CollectionInfractionsImpl();
+	public CollectionInfractions trouverInfractionsParDossier(Dossier mydossier) {
 
-		int[] infractions = mydossier.getListeInfraction();
+		CollectionInfractions collectionInfraction = new CollectionInfractions();
 
-		for (int i = 0; i < infractions.length; i++) {
-			for (InfractionImpl infraction : _collectionInfraction.getListeInfractions()) {
-				if (infractions[i] == infraction.id()) {
-					collectionInfraction.getListeInfractions().add(infraction);
+		// Recopie de la liste
+		for (Infraction inf : mydossier.getListeInfraction()) {
+			int flag = 0;
+			for (Infraction inf2 : collectionInfraction.getListeInfractions()) {
+				if (inf.id() == inf2.id()) {
+					flag = 1;
+					break;
 				}
+
+			}
+			if (flag == 0) {
+				collectionInfraction.getListeInfractions().add(inf);
 			}
 		}
+		return collectionInfraction;
 
-		return toCollectionInfractionCORBA(collectionInfraction);
 	}
 
 	public Infraction trouverInfractionParId(int idInfraction) {
-		for (InfractionImpl infraction : _collectionInfraction.getListeInfractions()) {
-			if (infraction.id() == idInfraction) {
-				return toInfractionCORBA(infraction);
-			}
+		for (Infraction infraction : this._collectionInfractions
+				.getListeInfractions()) {
+			if (infraction.id() == idInfraction)
+				return infraction;
 		}
 		return null;
 	}
 
-	public void ajouterInfraction(String description, int niveau) throws NiveauHorsBornesException {
+	public void ajouterInfraction(int idInfraction, String description,
+			int niveau) {
 
-		if (niveau < 1 || niveau > 10) {
-			throw new NiveauHorsBornesException("Le niveau doit être compris entre 1 et 10 inclusivement.");
-		}
-
-		InfractionImpl infraction = new InfractionImpl(_collectionInfraction.size(), description, niveau);
-		_collectionInfraction.getListeInfractions().add(infraction);
-
-		saveChangesToFile();
+		Infraction infraction = new Infraction(idInfraction, description,
+				niveau);
+		this._collectionInfractions.getListeInfractions().add(infraction);
 	}
 
-	private Infraction toInfractionCORBA(InfractionImpl infraction) {
+	public void ajouterInfraction(String description, int niveau)
+			throws NiveauHorsBornesException {
+
+		if (niveau < 1 || niveau > 10)
+			throw new NiveauHorsBornesException(
+					"Le niveau doit ï¿½tre compris entre 1 et 10 inclusivement.");
+
+		Infraction infraction = new Infraction(
+				this._collectionInfractions.size(), description, niveau);
+		this._collectionInfractions.getListeInfractions().add(infraction);
+
+		this.saveInfractionToDB(infraction);
+	}
+
+	// Initialisation de la connexiona a la base
+	public void initDBConnection() {
 		try {
-			POA rootpoa = Server._poa;
-			org.omg.CORBA.Object obj = rootpoa.servant_to_reference(infraction);
-			return InfractionHelper.narrow(obj);
-		} catch (Exception ex) {
-			System.out.println("Erreur retour de l'object Infraction: " + ex);
-			return null;
+			InitialContext ic = new InitialContext(); // JNDI initial context
+			this.ds = (DataSource) ic
+					.lookup("java:/comp/env/jdbc/equipe17-log720-A11-lab2"); // JNDI
+			// lookup
+			this.conn = this.ds.getConnection(); // database connection through
+			// data
+			// source
+		} catch (SQLException se) {
+
+		} catch (NamingException ne) {
+
 		}
 	}
 
-	private CollectionInfraction toCollectionInfractionCORBA(CollectionInfractionsImpl collection) {
+	public void closeDBConnection() {
+
 		try {
-			POA rootpoa = Server._poa;
-			org.omg.CORBA.Object obj = rootpoa.servant_to_reference(collection);
-			return CollectionInfractionHelper.narrow(obj);
-		} catch (Exception ex) {
-			System.out.println("Erreur retour de l'object CollectionInfraction: " + ex);
-			return null;
+			if (this.conn != null) {
+
+				this.conn.close();
+			}
+
+			if (this.stmt != null) {
+				this.stmt.close();
+			}
+		} catch (SQLException se) {
+
 		}
 	}
 
 	private void initData() {
+		// Initialisation datasource
+		this.initDBConnection();
 		try {
-			File saveFile = new File(SAVE_FILE);
-			BufferedReader br = new BufferedReader(new FileReader(saveFile));
-			String line;
-			while ((line = br.readLine()) != null) {
+			this.queryString = "SELECT * FROM INFRACTIONS";
+			this.stmt = this.conn.createStatement();
+			ResultSet rs = this.stmt.executeQuery(this.queryString);
 
-				String[] strings = line.split(";");
-
-				InfractionImpl infraction = new InfractionImpl(Integer.parseInt(strings[0]), strings[1], Integer.parseInt(strings[2]));
-
-				_collectionInfraction.getListeInfractions().add(infraction);
+			while (rs.next()) {
+				int idInfraction = rs.getInt(1);
+				String description = rs.getString(2);
+				int niveau = rs.getInt(2);
+				this.ajouterInfraction(idInfraction, description, niveau);
 			}
-			br.close();
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
+		} catch (SQLException se) {
 
-		System.out.println(String.format("*** Finished BanqueInfractions initialization : %d files created. ***", _collectionInfraction
-				.getListeInfractions().size()));
-	}
-	
-	private void saveChangesToFile() {
-		clearFileContent();
-
-		try {
-			File fout = new File(SAVE_FILE);
-			FileOutputStream fos = new FileOutputStream(fout);
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-
-			int id = 0;
-			for (InfractionImpl infraction : _collectionInfraction.getListeInfractions()) {
-
-				bw.write(String.format("%d;%s;%d;", id++, infraction.description(), infraction.niveau()));
-				bw.newLine();
-			}
-
-			bw.close();
-		} catch (Exception ex) {
-			System.out.println(ex);
 		}
 	}
 
-	private void clearFileContent() {
+	private int saveInfractionToDB(Infraction inf) {
+
 		try {
-			PrintWriter writer = new PrintWriter(new File(SAVE_FILE));
-			writer.print("");
-			writer.close();
-		} catch (FileNotFoundException e) {
-			System.out.println(e);
+			String queryString = "INSERT INTO INFRACTIONS"
+					+ "(IDINFRACTION,DESCRIPTION, NIVEAU)" + "values ("
+					+ inf.id() + "," + inf.description() + "," + inf.niveau()
+					+ ")";
+			Statement stmt = this.conn.createStatement();
+			return stmt.executeUpdate(queryString);
+		} catch (Exception ex) {
+
 		}
+		return 0;
 	}
 
 }

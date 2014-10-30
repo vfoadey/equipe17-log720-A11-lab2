@@ -6,21 +6,23 @@ public class CollectionInfractions {
 	private ArrayList<Infraction> _listeInfraction;
 
 	public CollectionInfractions() {
-		_listeInfraction = new ArrayList<Infraction>();
+		this._listeInfraction = new ArrayList<Infraction>();
 	}
 
-	public Infraction getInfraction (int index) {
-		for(Infraction inf : this._listeInfraction){
-			
+	public Infraction getInfraction(int index) {
+		for (Infraction inf : this._listeInfraction) {
+			if (inf.id() == index)
+				return inf;
 		}
+		return null;
 	}
 
 	public int size() {
 		return this._listeInfraction.size();
 	}
-	
+
 	protected ArrayList<Infraction> getListeInfractions() {
-		return _listeInfraction;
+		return this._listeInfraction;
 	}
 
 }

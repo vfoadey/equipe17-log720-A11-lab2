@@ -5,37 +5,38 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Dossier {
-	
-	private int  	_idDossier;	
-	private String 	_numeroPermis;
-	private String	_idUtilisateur;
-	private String 	_nom;
-	private String 	_prenom;
-	private String	_numeroPlaque;
-	private ArrayList<Integer> _listeReaction;
-	private ArrayList<Integer> _listeInfraction;
 
-	public Dossier(String numeroPermis, String idUtilisateur, String nom, String prenom, String noPlaque) {
+	private int _idDossier;
+	private String _numeroPermis;
+	private String _idUtilisateur;
+	private String _nom;
+	private String _prenom;
+	private String _numeroPlaque;
+	private ArrayList<Integer> _listeReaction;
+	private ArrayList<Infraction> _listeInfraction;
+
+	public Dossier(int idDossier, String numeroPermis, String idUtilisateur,
+			String nom, String prenom, String noPlaque) {
+		this._idDossier = idDossier;
 		this._numeroPermis = numeroPermis;
 		this._idUtilisateur = idUtilisateur;
 		this._nom = nom;
 		this._prenom = prenom;
 		this._numeroPlaque = noPlaque;
 		this._listeReaction = new ArrayList<Integer>();
-		this._listeInfraction = new ArrayList<Integer>();
+		this._listeInfraction = new ArrayList<Infraction>();
 	}
-	
-	
+
 	public int idDossier() {
-		return this._idDossier;		
+		return this._idDossier;
 	}
-	
-	public String idUtilisateur(){
+
+	public String idUtilisateur() {
 		return this._idUtilisateur;
 	}
 
 	public String nom() {
-		return _nom;
+		return this._nom;
 	}
 
 	public String noPermis() {
@@ -47,19 +48,19 @@ public class Dossier {
 	}
 
 	public String prenom() {
-		return _prenom;
+		return this._prenom;
 	}
-	
+
 	public int niveau() {
-		if (_listeInfraction.size() == 0) {
+		if (this._listeInfraction.size() == 0)
 			return 0;
-		}
 
 		BanqueInfractions banqueInfractions = new BanqueInfractions();
 
 		int highest = 0;
-		for (Integer infractionId : _listeInfraction) {
-			Infraction infraction = banqueInfractions.trouverInfractionParId(infractionId);
+		for (Infraction inf : this._listeInfraction) {
+			Infraction infraction = banqueInfractions
+					.trouverInfractionParId(inf.id());
 			if (infraction.niveau() > highest) {
 				highest = infraction.niveau();
 			}
@@ -67,44 +68,50 @@ public class Dossier {
 		return highest;
 	}
 
-	public int[] getListeInfraction() {
-		return convertIntegers(_listeInfraction);
+	public ArrayList<Infraction> getListeInfraction() {
+		return this._listeInfraction;
 	}
 
-	public HashMap<Integer, Integer>  getFrequencyMapInfraction() {
-		HashMap<Integer ,Integer> frequencymap = new HashMap<Integer,Integer>();
-		
-		for(Integer Inf :_listeInfraction) {
-		  if(frequencymap.containsKey(Inf)) {
-		    frequencymap.put(Inf, frequencymap.get(Inf)+1);
-		  }
-		  else{ frequencymap.put(Inf, 1); }
+	public HashMap<Infraction, Integer> getFrequencyMapInfraction() {
+		HashMap<Infraction, Integer> frequencymap = new HashMap<Infraction, Integer>();
+
+		for (Infraction Inf : this._listeInfraction) {
+			if (frequencymap.containsKey(Inf)) {
+				frequencymap.put(Inf, frequencymap.get(Inf) + 1);
+			} else {
+				frequencymap.put(Inf, 1);
+			}
 		}
 		return frequencymap;
 	}
-	
-	public ArrayList<Integer> CloneArrayList(ArrayList<Integer> list){
+
+	public ArrayList<Integer> CloneArrayList(ArrayList<Integer> list) {
 		ArrayList<Integer> clone = new ArrayList<Integer>();
-		for(Integer i : list) clone.add(i);
+		for (Integer i : list) {
+			clone.add(i);
+		}
 		return clone;
 	}
-	
 
 	public int[] getListeReaction() {
-		return convertIntegers(_listeReaction);
+		return this.convertIntegers(this._listeReaction);
 	}
 
 	public void ajouterReactionAListe(int idReaction) {
 		this._listeReaction.add(idReaction);
 	}
 
-	public void ajouterInfractionAListe(int idInfraction) {
+	public void ajouterInfractionAListe(Infraction idInfraction) {
 		this._listeInfraction.add(idInfraction);
 	}
 
 	public String _toString() {
-		return String.format("Dossier %d : %s - %s - %s - %s - %d infractions - %d reactions", this._idDossier, this._nom, this._prenom, this._numeroPermis,
-				this._numeroPlaque, this._listeInfraction.size(), this._listeReaction.size());
+		return String
+				.format("Dossier %d : %s - %s - %s - %s - %d infractions - %d reactions",
+						this._idDossier, this._nom, this._prenom,
+						this._numeroPermis, this._numeroPlaque,
+						this._listeInfraction.size(),
+						this._listeReaction.size());
 	}
 
 	private int[] convertIntegers(List<Integer> integers) {
@@ -115,5 +122,4 @@ public class Dossier {
 		return ret;
 	}
 
-	
 }

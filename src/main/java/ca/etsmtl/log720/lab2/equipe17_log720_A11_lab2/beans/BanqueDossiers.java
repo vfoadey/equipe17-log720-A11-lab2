@@ -1,28 +1,26 @@
 package ca.etsmtl.log720.lab2.equipe17_log720_A11_lab2.beans;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletException;
 import javax.sql.DataSource;
 
 public class BanqueDossiers {
-	
+
 	private CollectionDossiers _collectionDossiers;
-	DataSource ds = null;
-    Connection conn = null;
-    private int initFlag = 0;
+	private DataSource ds = null;
+	private Connection conn = null;
+	private Statement stmt = null;
+	private String queryString;
+	private int initFlag = 0;
 
 	public BanqueDossiers() {
-		_collectionDossiers = new CollectionDossiers();
-		initData();
+		this._collectionDossiers = new CollectionDossiers();
+		this.initData();
 	}
 
 	public CollectionDossiers dossiers() {
@@ -32,18 +30,19 @@ public class BanqueDossiers {
 	public CollectionDossiers trouverDossiersParPlaque(String plaque) {
 		CollectionDossiers collection = new CollectionDossiers();
 
-		for (Dossier dossier : _collectionDossiers.getListeDossiers()) {
+		for (Dossier dossier : this._collectionDossiers.getListeDossiers()) {
 			if (dossier.noPlaque().equals(plaque)) {
 				collection.getListeDossiers().add(dossier);
 			}
 		}
 
 		return collection;
+
 	}
 
 	public CollectionDossiers trouverDossiersParNom(String nom, String prenom) {
 		CollectionDossiers collection = new CollectionDossiers();
-		
+
 		if (nom.equals("")) {
 			for (Dossier dossier : this._collectionDossiers.getListeDossiers()) {
 				if (dossier.prenom().equals(prenom)) {
@@ -51,133 +50,200 @@ public class BanqueDossiers {
 				}
 			}
 		} else if (prenom.equals("")) {
-			for (Dossier dossier : _collectionDossiers.getListeDossiers()) {
+			for (Dossier dossier : this._collectionDossiers.getListeDossiers()) {
 				if (dossier.nom().equals(nom)) {
 					collection.getListeDossiers().add(dossier);
 				}
 			}
 		} else {
-			for (Dossier dossier : _collectionDossiers.getListeDossiers()) {
-				if (dossier.nom().equals(nom) && dossier.prenom().equals(prenom)) {
+			for (Dossier dossier : this._collectionDossiers.getListeDossiers()) {
+				if (dossier.nom().equals(nom)
+						&& dossier.prenom().equals(prenom)) {
 					collection.getListeDossiers().add(dossier);
 				}
 			}
 		}
-		
-		return  collection;
+
+		return collection;
 	}
 
 	public Dossier trouverDossierParPermis(String noPermis) {
 		for (Dossier dossier : this._collectionDossiers.getListeDossiers()) {
-			if (dossier.noPermis().equals(noPermis)) {
+			if (dossier.noPermis().equals(noPermis))
 				return dossier;
-			}
 		}
 		return null;
 	}
 
 	public Dossier trouverDossierParId(int idDossier) {
 		return this._collectionDossiers.getListeDossiers().get(idDossier);
-		
+
 	}
 
-	public void ajouterDossier(int idDossier, String noPermis, String idUtilisateur, String nom, String prenom, String noPlaque) throws NoPermisExisteDejaException {
-		for (Dossier d : _collectionDossiers.getListeDossiers()) {
-			if (d.noPermis().equals(noPermis) || (d.idDossier() == idDossier)) {
-				throw new NoPermisExisteDejaException("Le num�ro de permis est deja utiliser dans un autre dossier");
-			}
+	public void ajouterDossier(String noPermis, String idUtilisateur,
+			String nom, String prenom, String noPlaque)
+			throws NoPermisExisteDejaException {
+		for (Dossier dossier : this._collectionDossiers.getListeDossiers()) {
+			if (dossier.noPermis().equals(noPermis))
+				throw new NoPermisExisteDejaException(
+						"Le numéro de permis est deja utiliser dans un autre dossier");
 		}
-		
-		Dossier d = new Dossier(noPermis, idUtilisateur, nom, prenom, noPlaque);
-		_collectionDossiers.getListeDossiers().add(d);
-		if(initFlag == 0) saveToDB(d);
+
+		Dossier d = new Dossier(this._collectionDossiers.size(), noPermis,
+				idUtilisateur, nom, prenom, noPlaque);
+		this._collectionDossiers.getListeDossiers().add(d);
+		this.saveDossierToDB(d);
 	}
 
-	public void ajouterInfractionAuDossier(int idDossier, int idInfraction) throws InvalidIdException {
-		for(Dossier d : this._collectionDossiers.getListeDossiers()) {
-			if(d.idDossier() == idDossier) {
-				d.ajouterInfractionAListe(idInfraction);
-			}
+	public void ajouterDossier(int idDossier, String noPermis,
+			String idUtilisateur, String nom, String prenom, String noPlaque) {
+
+		Dossier d = new Dossier(idDossier, noPermis, idUtilisateur, nom,
+				prenom, noPlaque);
+		this._collectionDossiers.getListeDossiers().add(d);
+		if (this.initFlag == 0) {
+			this.saveDossierToDB(d);
 		}
 	}
 
-    //Initialisation de la connexiona a la base
-    public void initDBConnection() throws ServletException {
-      try {
-        InitialContext ic = new InitialContext();  // JNDI initial context
-        ds = (DataSource) ic.lookup("java:/comp/env/jdbc/equipe17-log720-A11-lab2"); // JNDI lookup
-        conn = ds.getConnection();  // database connection through data source
-      }
-      catch (SQLException se) {
-        throw new ServletException(se);
-      }
-      catch (NamingException ne) {
-        throw new ServletException(ne);
-      }
-    }
+	public void ajouterInfractionAuDossier(int idDossier, int idInfraction)
+			throws InvalidIdException {
+		BanqueInfractions banqueInfraction = new BanqueInfractions();
+		for (Dossier dossier : this._collectionDossiers.getListeDossiers()) {
+			if (dossier.idDossier() == idDossier) {
+				dossier.ajouterInfractionAListe(banqueInfraction
+						.trouverInfractionParId(idInfraction));
+				try {
+					this.initDBConnection();
+					this.queryString = "INSERT (idDossier, idInfraction) INTO DOSSIERS_INFRACTION"
+							+ "values (" + idDossier + "," + idInfraction + ")";
+					this.stmt.executeUpdate(this.queryString);
 
-    private void initData() {
-    	//Initialisation datasource
-    	initDBConnection();
-    	//mettre le flag a 1
-    	initFlag = 1;
-    	try {
-		String queryString ="SELECT * FROM DOSSIERS";
-		Statement stmt = conn.createStatement();
-		ResultSet  rs = stmt.executeQuery(queryString);
-		
-		while(rs.next()){
-			int idDossier = rs.getInt(1);
-			String idUtilisateur = rs.getString(2);
-			String noPermis = rs.getString(2);
-			String nom = rs.getString(3);
-			String prenom = rs.getString(4);
-			String  noPlaque = rs.getString(5);
-			this.ajouterDossier(idDossier, noPermis, idUtilisateur, nom, prenom, noPlaque);	
-			}
-		}
-		catch(Exception ex){
-			
-		}
-    	initFlag = 0;
-	
-    }
+				} catch (SQLException se) {
 
-	private void saveAllDossierListToDB() {
-			int flag = 0;
-			try{
-			for(int i = 0; i<= this._collectionDossiers.getListeDossiers().size(); i++){
-				Dossier d = this._collectionDossiers.getListeDossiers().get(i);
-				
-				String queryString ="INSERT INTO DOSSIERS"+
-						"(NUMEROPERMIS, IDUTILISATEUR, NOM, PRENOM, NUMEROPLAQUE)" +
-						"values ("+ d.noPermis()+","+ d.idUtilisateur()+","+ d.nom()+","+ d.prenom()+","+d.noPlaque()+")";
-				Statement stmt = conn.createStatement();
-				flag = stmt.executeUpdate(queryString);
+				} finally {
+					this.closeDBConnection();
+				}
+				return;
 			}
-			} catch(Exception ex){
-				
-			}
-				
 		}
-	
-	//Ajouter une instance de dossier a la table Dossier
-	private int saveToDB(Dossier d) {
-		
-		try{
-			String queryString ="INSERT INTO DOSSIERS"+
-					"(IDDOSSIER,NUMEROPERMIS, IDUTILISATEUR, NOM, PRENOM, NUMEROPLAQUE)" +
-					"values ("+ d.idDossier()+","+ d.noPermis()+","+ d.idUtilisateur()+","+ d.nom()+","+ d.prenom()+","+d.noPlaque()+")";
-			Statement stmt = conn.createStatement();
-			return stmt.executeUpdate(queryString);		
-			} catch(Exception ex) {
-			
+
+		throw new InvalidIdException("Le ID du dossier fournis n'existe pas.");
+	}
+
+	// Initialisation de la connexiona a la base
+	public void initDBConnection() {
+		try {
+			InitialContext ic = new InitialContext(); // JNDI initial context
+			this.ds = (DataSource) ic
+					.lookup("java:/comp/env/jdbc/equipe17-log720-A11-lab2"); // JNDI
+			// lookup
+			this.conn = this.ds.getConnection(); // database connection through
+			// data
+			// source
+		} catch (SQLException se) {
+
+		} catch (NamingException ne) {
+
+		}
+	}
+
+	public void closeDBConnection() {
+
+		try {
+			if (this.conn != null) {
+
+				this.conn.close();
+			}
+
+			if (this.stmt != null) {
+				this.stmt.close();
+			}
+		} catch (SQLException se) {
+
+		}
+	}
+
+	private void initData() {
+		// Initialisation datasource
+		this.initDBConnection();
+		// mettre le flag a 1
+		this.initFlag = 1;
+		try {
+			this.queryString = "SELECT * FROM DOSSIERS";
+			this.stmt = this.conn.createStatement();
+			ResultSet rs = this.stmt.executeQuery(this.queryString);
+
+			while (rs.next()) {
+				int idDossier = rs.getInt(1);
+				String idUtilisateur = rs.getString(2);
+				String noPermis = rs.getString(2);
+				String nom = rs.getString(3);
+				String prenom = rs.getString(4);
+				String noPlaque = rs.getString(5);
+				this.ajouterDossier(idDossier, noPermis, idUtilisateur, nom,
+						prenom, noPlaque);
+			}
+
+			// Ajout récursif des infractions a chaque dossier
+			BanqueInfractions banqueInfractions = new BanqueInfractions();
+			this.queryString = "SELECT * FROM DOSSIERS_INFRACTIONS";
+			rs = this.stmt.executeQuery(this.queryString);
+			while (rs.next()) {
+				int idDossier = rs.getInt(1);
+				int idInfraction = rs.getInt(2);
+				Infraction infraction = banqueInfractions
+						.trouverInfractionParId(idInfraction);
+
+				for (Dossier d : this._collectionDossiers.getListeDossiers()) {
+					if (d.idDossier() == idDossier) {
+						d.getListeInfraction().add(infraction);
+					}
+				}
+
+			}
+		} catch (Exception ex) {
+
+		} finally {
+
+			this.closeDBConnection();
+		}
+		this.initFlag = 0;
+
+	}
+
+	// Ajouter une instance de dossier a la table Dossier
+	private int saveDossierToDB(Dossier d) {
+
+		try {
+			String queryString = "INSERT INTO DOSSIERS"
+					+ "(IDDOSSIER,NUMEROPERMIS, IDUTILISATEUR, NOM, PRENOM, NUMEROPLAQUE)"
+					+ "values (" + d.idDossier() + "," + d.noPermis() + ","
+					+ d.idUtilisateur() + "," + d.nom() + "," + d.prenom()
+					+ "," + d.noPlaque() + ")";
+			Statement stmt = this.conn.createStatement();
+			return stmt.executeUpdate(queryString);
+		} catch (Exception ex) {
+
 		}
 		return 0;
 	}
 
-	private void clearFileContent() {
-		
+	public int deleteDossierFromDB(Dossier d) throws SQLException {
+
+		try {
+			this.initDBConnection();
+			this.queryString = "DELETE FROM DOSSIER WHERE" + "DOSSIER.ID ="
+					+ d.idDossier();
+			return this.stmt.executeUpdate(this.queryString);
+		} catch (SQLException se) {
+
+		} finally {
+			this.closeDBConnection();
+		}
+
+		return 0;
+
 	}
 
 }
