@@ -1,8 +1,9 @@
-equipe17-log720-A11-lab2
-========================
-REPERTOIRES
+
+<h2>REPERTOIRES</h2>
 
 Après avoir décompressé ce fichier, vous obtenez les répertoires suivants:
+  
+  <pre><code>   +
   +-README.md                  : le fichier que vous êtes en train de lire
   |
   +-src 
@@ -15,6 +16,8 @@ Après avoir décompressé ce fichier, vous obtenez les répertoires suivants:
   |   |   |   |
   |   |   |   + META-INF : contient le fichier context xml pour la definition du data source pour JNDI
   +-pom.xml : fichier de configuration de l'application
+  </code></pre>
+  
  
  Avant de d'exécuter l'application, assurez vous que vous avez les outils nécessaire installés:
 
