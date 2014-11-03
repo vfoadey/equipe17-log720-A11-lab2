@@ -139,8 +139,8 @@ public class BanqueDossiers {
 					.lookup("java:/comp/env/jdbc/equipe17-log720-A11-lab2"); // JNDI
 			// lookup
 			this.conn = this.ds.getConnection(); // database connection through
-			// data
-			// source
+													// datasource
+
 		} catch (SQLException se) {
 
 		} catch (NamingException ne) {
@@ -190,8 +190,8 @@ public class BanqueDossiers {
 			this.queryString = "SELECT * FROM DOSSIERS_INFRACTIONS";
 			rs = this.stmt.executeQuery(this.queryString);
 			while (rs.next()) {
-				int idDossier = rs.getInt(1);
-				int idInfraction = rs.getInt(2);
+				int idDossier = rs.getInt(2);
+				int idInfraction = rs.getInt(3);
 				Infraction infraction = banqueInfractions
 						.trouverInfractionParId(idInfraction);
 

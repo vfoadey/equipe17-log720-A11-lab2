@@ -7,9 +7,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hawaii 5-0 Portal</h1>
-		
-		<a href="admin/admin_index.jsp">Administrateur</a></br>
-		<a href="agent/agent_index.jsp">Agent</a>
+        <h1>Portail Policier</h1>
     </body>
 </html>

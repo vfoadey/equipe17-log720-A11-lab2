@@ -5,7 +5,7 @@ public class Infraction {
 	private int _niveau;
 	private int _id;
 
-	public Infraction (int id, String description, int niveau) {
+	public Infraction(int id, String description, int niveau) {
 		this._id = id;
 		this._description = description;
 		this._niveau = niveau;
@@ -16,15 +16,16 @@ public class Infraction {
 	}
 
 	public String description() {
-		return _description;
+		return this._description;
 	}
 
 	public int niveau() {
-		return _niveau;
+		return this._niveau;
 	}
 
-	public String _toString() {
-		return String.format("Infraction %d: %s :: niveau %d.", this._id, this._description, this._niveau);
+	public String afficher() {
+		return String.format("Infraction %d: %s :: niveau %d.", this._id,
+				this._description, this._niveau);
 	}
 
 }

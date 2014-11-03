@@ -6,24 +6,25 @@ public class CollectionDossiers {
 	private ArrayList<Dossier> _listeDossiers;
 
 	public CollectionDossiers() {
-		_listeDossiers = new ArrayList<Dossier>();
+		this._listeDossiers = new ArrayList<Dossier>();
 	}
 
 	public Dossier getDossier(int index) {
-		
-		for(Dossier d : this._listeDossiers) {
-			if(d.idDossier() == index) return d;
+
+		for (Dossier d : this._listeDossiers) {
+			if (d.idDossier() == index)
+				return d;
 		}
-		
-		return null; 
+
+		return null;
 	}
 
 	public int size() {
-		return _listeDossiers.size();
+		return this._listeDossiers.size();
 	}
 
-	protected ArrayList<Dossier> getListeDossiers() {
-		return _listeDossiers;
+	public ArrayList<Dossier> getListeDossiers() {
+		return this._listeDossiers;
 	}
-	
+
 }

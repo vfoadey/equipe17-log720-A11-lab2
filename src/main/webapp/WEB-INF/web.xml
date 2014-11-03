@@ -5,7 +5,7 @@
     <session-timeout>30</session-timeout>
   </session-config>
   <welcome-file-list>
-    <welcome-file>connexion.jsp</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   <resource-ref>
     <description>DB Connection</description>
@@ -13,14 +13,58 @@
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>SecuredApp</web-resource-name>
+      <url-pattern>/admin/*</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Admin Only</description>
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-role>
+    <role-name>admin</role-name>
+  </security-role>
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name> Admin panel</realm-name>
+    <form-login-config>
+    	<form-login-page>/connexion.jsp</form-login-page> 
+    	<form-error-page>/errorConnexionPage.jsp</form-error-page>   	
+    </form-login-config>
+  </login-config>
+ 
   <servlet>
     <description></description>
-    <display-name>Connexion</display-name>
-    <servlet-name>Connexion</servlet-name>
-    <servlet-class>ca.etsmtl.log720.lab2.equipe17_log720_A11_lab2.servlets.Connexion</servlet-class>
+    <display-name>Test</display-name>
+    <servlet-name>Test</servlet-name>
+    <servlet-class>ca.etsmtl.log720.lab2.equipe17_log720_A11_lab2.servlets.Test</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Connexion</servlet-name>
-    <url-pattern>/Connexion</url-pattern>
+    <servlet-name>Test</servlet-name>
+    <url-pattern>/Test</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>listeDossier</display-name>
+    <servlet-name>listeDossier</servlet-name>
+    <servlet-class>ca.etsmtl.log720.lab2.equipe17_log720_A11_lab2.servlets.listeDossier</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>listeDossier</servlet-name>
+    <url-pattern>/listeDossier</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>listeInfraction</display-name>
+    <servlet-name>listeInfraction</servlet-name>
+    <servlet-class>ca.etsmtl.log720.lab2.equipe17_log720_A11_lab2.servlets.listeInfraction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>listeInfraction</servlet-name>
+    <url-pattern>/listeInfraction</url-pattern>
   </servlet-mapping>
 </web-app>

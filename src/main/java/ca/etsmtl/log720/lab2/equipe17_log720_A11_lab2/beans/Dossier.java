@@ -105,7 +105,7 @@ public class Dossier {
 		this._listeInfraction.add(idInfraction);
 	}
 
-	public String _toString() {
+	public String afficher() {
 		return String
 				.format("Dossier %d : %s - %s - %s - %s - %d infractions - %d reactions",
 						this._idDossier, this._nom, this._prenom,

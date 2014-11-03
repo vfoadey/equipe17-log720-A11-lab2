@@ -123,7 +123,7 @@ public class BanqueInfractions {
 			while (rs.next()) {
 				int idInfraction = rs.getInt(1);
 				String description = rs.getString(2);
-				int niveau = rs.getInt(2);
+				int niveau = rs.getInt(3);
 				this.ajouterInfraction(idInfraction, description, niveau);
 			}
 		} catch (SQLException se) {

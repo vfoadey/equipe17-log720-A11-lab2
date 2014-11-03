@@ -21,7 +21,7 @@ public class CollectionInfractions {
 		return this._listeInfraction.size();
 	}
 
-	protected ArrayList<Infraction> getListeInfractions() {
+	public ArrayList<Infraction> getListeInfractions() {
 		return this._listeInfraction;
 	}
 
