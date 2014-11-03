@@ -218,9 +218,9 @@ public class BanqueDossiers {
 		try {
 			String queryString = "INSERT INTO DOSSIERS"
 					+ "(IDDOSSIER,NUMEROPERMIS, IDUTILISATEUR, NOM, PRENOM, NUMEROPLAQUE)"
-					+ "values (" + d.idDossier() + "," + d.noPermis() + ","
-					+ d.idUtilisateur() + "," + d.nom() + "," + d.prenom()
-					+ "," + d.noPlaque() + ")";
+					+ "values (" + d.idDossier() + ",'" + d.noPermis() + "',"
+					+ d.idUtilisateur() + ",'" + d.nom() + "','" + d.prenom()
+					+ "','" + d.noPlaque() + "')";
 			Statement stmt = this.conn.createStatement();
 			return stmt.executeUpdate(queryString);
 		} catch (Exception ex) {

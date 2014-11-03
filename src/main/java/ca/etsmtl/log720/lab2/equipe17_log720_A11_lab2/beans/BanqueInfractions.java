@@ -73,7 +73,7 @@ public class BanqueInfractions {
 					"Le niveau doit �tre compris entre 1 et 10 inclusivement.");
 
 		Infraction infraction = new Infraction(
-				this._collectionInfractions.size(), description, niveau);
+				this._collectionInfractions.size()+1, description, niveau);
 		this._collectionInfractions.getListeInfractions().add(infraction);
 
 		this.saveInfractionToDB(infraction);
@@ -136,7 +136,7 @@ public class BanqueInfractions {
 		try {
 			String queryString = "INSERT INTO INFRACTIONS"
 					+ "(IDINFRACTION,DESCRIPTION, NIVEAU)" + "values ("
-					+ inf.id() + "," + inf.description() + "," + inf.niveau()
+					+ inf.id() + ",'" + inf.description() + "'," + inf.niveau()
 					+ ")";
 			Statement stmt = this.conn.createStatement();
 			return stmt.executeUpdate(queryString);
