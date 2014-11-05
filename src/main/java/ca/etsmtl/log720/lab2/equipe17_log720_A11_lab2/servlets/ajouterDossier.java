@@ -50,11 +50,13 @@ public class ajouterDossier extends HttpServlet {
 		// new Dossier(banqueDossier.dossiers().getListeDossiers().size() + 1,
 		// noPermisDossier, "agent", nomDossier, prenomDossier,
 		// noPlaqueDossier);
+		String mess;
 		try {
-			banqueDossier.ajouterDossier("user1_id", noPermisDossier,
+			mess = banqueDossier.ajouterDossier("user1_id", noPermisDossier,
 					nomDossier, prenomDossier, noPlaqueDossier);
 			request.setAttribute("dossiers", banqueDossier.dossiers()
 					.getListeDossiers());
+			request.setAttribute("messErrorCre", mess);
 		} catch (NoPermisExisteDejaException ex) {
 
 			request.setAttribute("mesError", ex.toString());

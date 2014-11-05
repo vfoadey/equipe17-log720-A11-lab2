@@ -80,19 +80,23 @@ public class BanqueDossiers {
 
 	}
 
-	public void ajouterDossier(String idUtilisateur, String noPermis,
+	public String ajouterDossier(String idUtilisateur, String noPermis,
 			String nom, String prenom, String noPlaque)
-					throws NoPermisExisteDejaException {
+			throws NoPermisExisteDejaException {
+		String message = "";
 		for (Dossier dossier : this._collectionDossiers.getListeDossiers()) {
 			if (dossier.noPermis().equals(noPermis))
 				throw new NoPermisExisteDejaException(
 						"Le numéro de permis est deja utiliser dans un autre dossier");
+
 		}
 
 		Dossier d = new Dossier(this._collectionDossiers.size() + 1,
 				idUtilisateur, noPermis, nom, prenom, noPlaque);
 		this._collectionDossiers.getListeDossiers().add(d);
-		this.saveDossierToDB(d);
+		message = this.saveDossierToDB(d);
+
+		return message;
 	}
 
 	public void ajouterDossier(int idDossier, String noPermis,
@@ -213,17 +217,13 @@ public class BanqueDossiers {
 	}
 
 	// Ajouter une instance de dossier a la table Dossier
-	private int saveDossierToDB(Dossier d) {
+	private String saveDossierToDB(Dossier d) {
 
+		String mess = "";
+		this.initDBConnection();
 		try {
 
-			String queryString = "INSERT INTO DOSSIERS"
-					+ "(IDDOSSIER,IDUTILISATEUR,NUMEROPERMIS, NOM, PRENOM, NUMEROPLAQUE)"
-					+ "values (" + d.idDossier() + ",'" + d.idUtilisateur()
-					+ "','" + d.noPermis() + "','" + d.nom() + "','"
-					+ d.prenom() + "','" + d.noPlaque() + "')";
-
-			queryString = "INSERT INTO dossiers ( iddossier, idutilisateur, numeropermis, nom, prenom, numeroplaque) VALUES ("
+			this.queryString = "INSERT INTO dossiers ( iddossier, idutilisateur, numeropermis, nom, prenom, numeroplaque) VALUES ("
 					+ d.idDossier()
 					+ ", '"
 					+ d.idUtilisateur()
@@ -233,13 +233,14 @@ public class BanqueDossiers {
 					+ d.nom()
 					+ "','"
 					+ d.prenom()
-					+ "','" + d.noPlaque() + ")";
+					+ "','" + d.noPlaque() + "')";
 			Statement stmt = this.conn.createStatement();
-			return stmt.executeUpdate(queryString);
+			return mess + stmt.executeUpdate(this.queryString);
 		} catch (Exception ex) {
-
+			mess = ex.getMessage();
 		}
-		return 0;
+		this.closeDBConnection();
+		return mess;
 	}
 
 	public int deleteDossierFromDB(Dossier d) throws SQLException {

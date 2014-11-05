@@ -73,7 +73,7 @@ public class BanqueInfractions {
 					"Le niveau doit �tre compris entre 1 et 10 inclusivement.");
 
 		Infraction infraction = new Infraction(
-				this._collectionInfractions.size()+1, description, niveau);
+				this._collectionInfractions.size() + 1, description, niveau);
 		this._collectionInfractions.getListeInfractions().add(infraction);
 
 		this.saveInfractionToDB(infraction);
