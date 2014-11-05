@@ -80,7 +80,7 @@ public class BanqueDossiers {
 
 	}
 
-	public void ajouterDossier(String noPermis, String idUtilisateur,
+	public void ajouterDossier(String idUtilisateur, String noPermis,
 			String nom, String prenom, String noPlaque)
 					throws NoPermisExisteDejaException {
 		for (Dossier dossier : this._collectionDossiers.getListeDossiers()) {
@@ -89,8 +89,8 @@ public class BanqueDossiers {
 						"Le numéro de permis est deja utiliser dans un autre dossier");
 		}
 
-		Dossier d = new Dossier(this._collectionDossiers.size() + 1, noPermis,
-				idUtilisateur, nom, prenom, noPlaque);
+		Dossier d = new Dossier(this._collectionDossiers.size() + 1,
+				idUtilisateur, noPermis, nom, prenom, noPlaque);
 		this._collectionDossiers.getListeDossiers().add(d);
 		this.saveDossierToDB(d);
 	}
@@ -98,7 +98,7 @@ public class BanqueDossiers {
 	public void ajouterDossier(int idDossier, String noPermis,
 			String idUtilisateur, String nom, String prenom, String noPlaque) {
 
-		Dossier d = new Dossier(idDossier, noPermis, idUtilisateur, nom,
+		Dossier d = new Dossier(idDossier, idUtilisateur, noPermis, nom,
 				prenom, noPlaque);
 		this._collectionDossiers.getListeDossiers().add(d);
 		if (this.initFlag == 0) {
@@ -216,11 +216,24 @@ public class BanqueDossiers {
 	private int saveDossierToDB(Dossier d) {
 
 		try {
+
 			String queryString = "INSERT INTO DOSSIERS"
 					+ "(IDDOSSIER,IDUTILISATEUR,NUMEROPERMIS, NOM, PRENOM, NUMEROPLAQUE)"
 					+ "values (" + d.idDossier() + ",'" + d.idUtilisateur()
 					+ "','" + d.noPermis() + "','" + d.nom() + "','"
 					+ d.prenom() + "','" + d.noPlaque() + "')";
+
+			queryString = "INSERT INTO dossiers ( iddossier, idutilisateur, numeropermis, nom, prenom, numeroplaque) VALUES ("
+					+ d.idDossier()
+					+ ", '"
+					+ d.idUtilisateur()
+					+ "','"
+					+ d.noPermis()
+					+ "','"
+					+ d.nom()
+					+ "','"
+					+ d.prenom()
+					+ "','" + d.noPlaque() + ")";
 			Statement stmt = this.conn.createStatement();
 			return stmt.executeUpdate(queryString);
 		} catch (Exception ex) {

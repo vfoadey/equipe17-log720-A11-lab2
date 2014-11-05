@@ -51,7 +51,7 @@ public class ajouterDossier extends HttpServlet {
 		// noPermisDossier, "agent", nomDossier, prenomDossier,
 		// noPlaqueDossier);
 		try {
-			banqueDossier.ajouterDossier(noPermisDossier, "user1_id",
+			banqueDossier.ajouterDossier("user1_id", noPermisDossier,
 					nomDossier, prenomDossier, noPlaqueDossier);
 			request.setAttribute("dossiers", banqueDossier.dossiers()
 					.getListeDossiers());
@@ -62,7 +62,7 @@ public class ajouterDossier extends HttpServlet {
 		}
 
 		this.getServletContext().getRequestDispatcher("/myTest.jsp")
-				.forward(request, response);
+		.forward(request, response);
 
 	}
 }
