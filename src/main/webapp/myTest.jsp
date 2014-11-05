@@ -15,10 +15,13 @@
 		<%
 		@SuppressWarnings("unchecked")
 		ArrayList<Dossier> dossiers = (ArrayList<Dossier>) request.getAttribute("dossiers");
+		String mesError = (String) request.getAttribute("mesError");
+		out.println("messageErreur:");
+		out.println(mesError);
 			
 			for(Dossier d : dossiers)
 			{
-				String s = d.afficher();
+				String s = d.afficher()+"</br>";
 				out.println(s);
 			}
 		%>

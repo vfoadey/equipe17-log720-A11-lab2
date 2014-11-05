@@ -15,7 +15,7 @@ public class Dossier {
 	private ArrayList<Integer> _listeReaction;
 	private ArrayList<Infraction> _listeInfraction;
 
-	public Dossier(int idDossier, String numeroPermis, String idUtilisateur,
+	public Dossier(int idDossier, String idUtilisateur, String numeroPermis,
 			String nom, String prenom, String noPlaque) {
 		this._idDossier = idDossier;
 		this._numeroPermis = numeroPermis;
@@ -107,9 +107,9 @@ public class Dossier {
 
 	public String afficher() {
 		return String
-				.format("Dossier %d : %s - %s - %s - %s - %d infractions - %d reactions",
-						this._idDossier, this._nom, this._prenom,
-						this._numeroPermis, this._numeroPlaque,
+				.format("Dossier %d : %s - %s - %s - %s - %s - %d infractions - %d reactions",
+						this._idDossier, this._idUtilisateur, this._nom,
+						this._prenom, this._numeroPlaque, this._numeroPermis,
 						this._listeInfraction.size(),
 						this._listeReaction.size());
 	}

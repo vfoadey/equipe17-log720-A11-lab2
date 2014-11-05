@@ -88,4 +88,14 @@
     <servlet-name>AjouterInfraction</servlet-name>
     <url-pattern>/AjouterInfraction</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ajouterDossier</display-name>
+    <servlet-name>ajouterDossier</servlet-name>
+    <servlet-class>ca.etsmtl.log720.lab2.equipe17_log720_A11_lab2.servlets.ajouterDossier</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ajouterDossier</servlet-name>
+    <url-pattern>/ajouterDossier</url-pattern>
+  </servlet-mapping>
 </web-app>

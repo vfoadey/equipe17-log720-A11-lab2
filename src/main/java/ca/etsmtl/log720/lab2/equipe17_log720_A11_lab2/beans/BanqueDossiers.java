@@ -82,14 +82,14 @@ public class BanqueDossiers {
 
 	public void ajouterDossier(String noPermis, String idUtilisateur,
 			String nom, String prenom, String noPlaque)
-			throws NoPermisExisteDejaException {
+					throws NoPermisExisteDejaException {
 		for (Dossier dossier : this._collectionDossiers.getListeDossiers()) {
 			if (dossier.noPermis().equals(noPermis))
 				throw new NoPermisExisteDejaException(
 						"Le numéro de permis est deja utiliser dans un autre dossier");
 		}
 
-		Dossier d = new Dossier(this._collectionDossiers.size(), noPermis,
+		Dossier d = new Dossier(this._collectionDossiers.size() + 1, noPermis,
 				idUtilisateur, nom, prenom, noPlaque);
 		this._collectionDossiers.getListeDossiers().add(d);
 		this.saveDossierToDB(d);
@@ -139,7 +139,7 @@ public class BanqueDossiers {
 					.lookup("java:/comp/env/jdbc/equipe17-log720-A11-lab2"); // JNDI
 			// lookup
 			this.conn = this.ds.getConnection(); // database connection through
-													// datasource
+			// datasource
 
 		} catch (SQLException se) {
 
@@ -177,10 +177,10 @@ public class BanqueDossiers {
 			while (rs.next()) {
 				int idDossier = rs.getInt(1);
 				String idUtilisateur = rs.getString(2);
-				String noPermis = rs.getString(2);
-				String nom = rs.getString(3);
-				String prenom = rs.getString(4);
-				String noPlaque = rs.getString(5);
+				String noPermis = rs.getString(3);
+				String nom = rs.getString(4);
+				String prenom = rs.getString(5);
+				String noPlaque = rs.getString(6);
 				this.ajouterDossier(idDossier, noPermis, idUtilisateur, nom,
 						prenom, noPlaque);
 			}
@@ -217,10 +217,10 @@ public class BanqueDossiers {
 
 		try {
 			String queryString = "INSERT INTO DOSSIERS"
-					+ "(IDDOSSIER,NUMEROPERMIS, IDUTILISATEUR, NOM, PRENOM, NUMEROPLAQUE)"
-					+ "values (" + d.idDossier() + ",'" + d.noPermis() + "',"
-					+ d.idUtilisateur() + ",'" + d.nom() + "','" + d.prenom()
-					+ "','" + d.noPlaque() + "')";
+					+ "(IDDOSSIER,IDUTILISATEUR,NUMEROPERMIS, NOM, PRENOM, NUMEROPLAQUE)"
+					+ "values (" + d.idDossier() + ",'" + d.idUtilisateur()
+					+ "','" + d.noPermis() + "','" + d.nom() + "','"
+					+ d.prenom() + "','" + d.noPlaque() + "')";
 			Statement stmt = this.conn.createStatement();
 			return stmt.executeUpdate(queryString);
 		} catch (Exception ex) {
