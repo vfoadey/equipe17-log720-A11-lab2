@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
 Build-Jdk: 1.7.0_60
-Built-By: AJ88130
+Built-By: aj88130
 Created-By: Maven Integration for Eclipse
 

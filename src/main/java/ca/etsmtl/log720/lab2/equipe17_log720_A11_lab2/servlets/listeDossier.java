@@ -31,8 +31,7 @@ public class listeDossier extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		BanqueDossiers banqueDossier = new BanqueDossiers();
-		request.setAttribute("dossiers", banqueDossier.dossiers()
-				.getListeDossiers());
+		request.setAttribute("dossiers", banqueDossier.dossiers());
 
 		this.getServletContext().getRequestDispatcher("/myTest.jsp")
 		.forward(request, response);

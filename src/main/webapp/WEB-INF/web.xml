@@ -98,4 +98,14 @@
     <servlet-name>ajouterDossier</servlet-name>
     <url-pattern>/ajouterDossier</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SelectionDossier</display-name>
+    <servlet-name>SelectionDossier</servlet-name>
+    <servlet-class>ca.etsmtl.log720.lab2.equipe17_log720_A11_lab2.servlets.SelectionDossier</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SelectionDossier</servlet-name>
+    <url-pattern>/SelectionDossier</url-pattern>
+  </servlet-mapping>
 </web-app>

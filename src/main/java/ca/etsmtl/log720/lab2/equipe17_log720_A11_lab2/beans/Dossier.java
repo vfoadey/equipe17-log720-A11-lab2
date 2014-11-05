@@ -59,10 +59,8 @@ public class Dossier {
 
 		int highest = 0;
 		for (Infraction inf : this._listeInfraction) {
-			Infraction infraction = banqueInfractions
-					.trouverInfractionParId(inf.id());
-			if (infraction.niveau() > highest) {
-				highest = infraction.niveau();
+			if (inf.niveau() > highest) {
+				highest = inf.niveau();
 			}
 		}
 		return highest;
@@ -83,14 +81,6 @@ public class Dossier {
 			}
 		}
 		return frequencymap;
-	}
-
-	public ArrayList<Integer> CloneArrayList(ArrayList<Integer> list) {
-		ArrayList<Integer> clone = new ArrayList<Integer>();
-		for (Integer i : list) {
-			clone.add(i);
-		}
-		return clone;
 	}
 
 	public int[] getListeReaction() {

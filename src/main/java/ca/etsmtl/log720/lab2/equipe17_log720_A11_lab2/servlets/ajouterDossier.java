@@ -50,17 +50,9 @@ public class ajouterDossier extends HttpServlet {
 		// new Dossier(banqueDossier.dossiers().getListeDossiers().size() + 1,
 		// noPermisDossier, "agent", nomDossier, prenomDossier,
 		// noPlaqueDossier);
-		try {
-			banqueDossier.ajouterDossier("user1_id", noPermisDossier,
-					nomDossier, prenomDossier, noPlaqueDossier);
-			request.setAttribute("dossiers", banqueDossier.dossiers()
-					.getListeDossiers());
-		} catch (NoPermisExisteDejaException ex) {
-
-			request.setAttribute("mesError", ex.toString());
-
-		}
-
+		banqueDossier.ajouterDossier("user1_id", noPermisDossier,
+				nomDossier, prenomDossier, noPlaqueDossier);
+		request.setAttribute("dossiers", banqueDossier.dossiers());
 		this.getServletContext().getRequestDispatcher("/myTest.jsp")
 		.forward(request, response);
 

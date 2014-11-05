@@ -28,7 +28,7 @@ public class AjouterInfraction extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/agent/AjouterInfraction.jsp")
+		this.getServletContext().getRequestDispatcher("/admin/AjouterInfraction.jsp")
 		.forward(request, response);
 	}
 
@@ -41,9 +41,7 @@ public class AjouterInfraction extends HttpServlet {
 		
 		try {
 			int niveau = Integer.parseInt(request.getParameter("txtNiveau"));
-			banque.ajouterInfraction(request.getParameter("txtDescription"), 1);
-		} catch (NiveauHorsBornesException e) {			
-			e.printStackTrace();
+			banque.ajouterInfraction(request.getParameter("txtDescription"), 1);		
 		} catch (Exception ex){
 			request.setAttribute("message", ex.getMessage());
 			ex.printStackTrace();
@@ -51,7 +49,7 @@ public class AjouterInfraction extends HttpServlet {
 		//message
 		//request.setAttribute("message","Niveau = " + request.getParameter("txtNiveau") + " et description : " + request.getParameter("txtDescription"));
 		
-		this.getServletContext().getRequestDispatcher("/agent/AjouterInfraction.jsp")
+		this.getServletContext().getRequestDispatcher("/admin/AjouterInfraction.jsp")
 		.forward(request, response);
 		
 	}

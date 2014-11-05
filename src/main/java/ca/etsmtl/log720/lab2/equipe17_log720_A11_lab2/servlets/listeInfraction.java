@@ -32,8 +32,7 @@ public class listeInfraction extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		BanqueInfractions listInfraction = new BanqueInfractions();
 
-		request.setAttribute("infractions", listInfraction.infractions()
-				.getListeInfractions());
+		request.setAttribute("infractions", listInfraction.Infractions());
 		this.getServletContext().getRequestDispatcher("/listeInfraction.jsp")
 		.forward(request, response);
 
