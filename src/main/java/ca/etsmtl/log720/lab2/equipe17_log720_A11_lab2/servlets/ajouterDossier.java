@@ -47,14 +47,21 @@ public class ajouterDossier extends HttpServlet {
 		String prenomDossier = request.getParameter("prenom_dossier");
 		String noPlaqueDossier = request.getParameter("noPlaque_dossier");
 		String noPermisDossier = request.getParameter("noPermis_dossier");
-		// new Dossier(banqueDossier.dossiers().getListeDossiers().size() + 1,
-		// noPermisDossier, "agent", nomDossier, prenomDossier,
-		// noPlaqueDossier);
+
 		banqueDossier.ajouterDossier("user1_id", noPermisDossier,
 				nomDossier, prenomDossier, noPlaqueDossier);
 		request.setAttribute("dossiers", banqueDossier.dossiers());
+
+		String mess;
+		try {
+			banqueDossier.ajouterDossier("user1_id", noPermisDossier,
+					nomDossier, prenomDossier, noPlaqueDossier);
+			request.setAttribute("dossiers", banqueDossier.dossiers());
+			//request.setAttribute("messErrorCre", mess);
+		} catch (Exception ex) {
+			request.setAttribute("mesError", ex.toString());
+		}
 		this.getServletContext().getRequestDispatcher("/myTest.jsp")
 		.forward(request, response);
-
 	}
 }

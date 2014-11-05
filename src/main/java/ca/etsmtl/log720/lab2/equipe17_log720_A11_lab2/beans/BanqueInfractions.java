@@ -44,27 +44,10 @@ public class BanqueInfractions {
 			return lstInfraction;		
 	}
 	
-	public void ajouterInfraction(Infraction inf) {
-		try {
-			String queryString = "INSERT INTO INFRACTIONS"
-					+ "(DESCRIPTION, NIVEAU)" + "values ('"
-					+ inf.description() + "'," + inf.niveau()
-					+ ")";
-			InitialContext ic = new InitialContext();;
-			ds = (DataSource) ic
-					.lookup("java:/comp/env/jdbc/equipe17-log720-A11-lab2"); // JNDI
-			conn = ds.getConnection();
-			Statement stmt = this.conn.createStatement();
-			stmt.execute(queryString);
-		} catch (Exception ex) {
-
-		}
-	}
-
 	public void ajouterInfraction(String description, int niveau) {
 		try {
 			String queryString = "INSERT INTO INFRACTIONS"
-					+ "(IDINFRACTION,DESCRIPTION, NIVEAU)" + "values (15,'"
+					+ "(IDINFRACTION,DESCRIPTION, NIVEAU)" + "values (11,'"
 					+ description + "'," + niveau
 					+ ")";
 			InitialContext ic = new InitialContext();;

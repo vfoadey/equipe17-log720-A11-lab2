@@ -16,8 +16,10 @@
 		@SuppressWarnings("unchecked")
 		ArrayList<Dossier> dossiers = (ArrayList<Dossier>) request.getAttribute("dossiers");
 		String mesError = (String) request.getAttribute("mesError");
+		String mesError2 = (String) request.getAttribute("messErrorCre")+"</br>";
 		out.println("messageErreur:");
 		out.println(mesError);
+		out.println(mesError2);
 			
 			for(Dossier d : dossiers)
 			{

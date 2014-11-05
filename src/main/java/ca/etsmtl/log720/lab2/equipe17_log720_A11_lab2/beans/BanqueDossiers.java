@@ -22,11 +22,11 @@ public class BanqueDossiers {
 	public BanqueDossiers() {
 		
 	}
-
 	public List<Dossier> dossiers() {
 		//select *
 		InitialContext ic;
 		List<Dossier> lstDossier = new ArrayList<Dossier>();
+
 		try {
 			ic = new InitialContext();
 		queryString = "SELECT * FROM DOSSIERS";
@@ -64,9 +64,9 @@ public class BanqueDossiers {
 					.lookup("java:/comp/env/jdbc/equipe17-log720-A11-lab2"); // JNDI
 			conn = ds.getConnection();
 			Statement stmt = this.conn.createStatement();
-			stmt.execute(queryString);			 
-		} catch (Exception ex) {
-
+			stmt.execute(queryString);	
+		}catch(Exception ex){
 		}
-	}	
+	}
 }
+	
