@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h4>Ajouter dossier</h4>
-<form method="post" action="../ajouterDossier">
+<form method="post" action="ajouterDossier">
 	<fieldset>
 		<legend> Ajouter dossier </legend>
 	    <label for="nom">Nom du dossier:<span class="requis">*</span></label>
@@ -30,6 +30,13 @@
 	    <input type="submit" value="Ajouter" class="sansLabel" />
 	    <br />
 	</fieldset>
+</form>
+<%
+	final String message = (String) request.getAttribute("message") == null ? "" : (String) request.getAttribute("message");
+%>
+<%= message %>
+<form method="link" action="..\logout.jsp">
+	<input type="submit" value="Logout"/>
 </form>
 
 </body>

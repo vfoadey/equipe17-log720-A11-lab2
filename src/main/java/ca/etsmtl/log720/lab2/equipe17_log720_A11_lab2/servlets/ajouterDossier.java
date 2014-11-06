@@ -31,7 +31,9 @@ public class ajouterDossier extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		request.setAttribute("mesError", "doGet");
+		this.getServletContext().getRequestDispatcher("/admin/ajouterDossier.jsp")
+		.forward(request, response);		
 	}
 
 	/**
@@ -47,21 +49,19 @@ public class ajouterDossier extends HttpServlet {
 		String prenomDossier = request.getParameter("prenom_dossier");
 		String noPlaqueDossier = request.getParameter("noPlaque_dossier");
 		String noPermisDossier = request.getParameter("noPermis_dossier");
-
-		banqueDossier.ajouterDossier("user1_id", noPermisDossier,
-				nomDossier, prenomDossier, noPlaqueDossier);
 		request.setAttribute("dossiers", banqueDossier.dossiers());
 
 		String mess;
 		try {
-			banqueDossier.ajouterDossier("user1_id", noPermisDossier,
+			mess = banqueDossier.ajouterDossier("user1_id", noPermisDossier,
 					nomDossier, prenomDossier, noPlaqueDossier);
 			request.setAttribute("dossiers", banqueDossier.dossiers());
-			//request.setAttribute("messErrorCre", mess);
+			request.setAttribute("message", "Dossier ajouter avec succès");
 		} catch (Exception ex) {
-			request.setAttribute("mesError", ex.toString());
+			request.setAttribute("message", ex.toString());
 		}
-		this.getServletContext().getRequestDispatcher("/myTest.jsp")
+		
+		this.getServletContext().getRequestDispatcher("/admin/ajouterDossier.jsp")
 		.forward(request, response);
 	}
 }

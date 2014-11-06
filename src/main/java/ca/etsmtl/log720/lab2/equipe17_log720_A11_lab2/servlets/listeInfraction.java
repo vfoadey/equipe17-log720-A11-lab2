@@ -33,7 +33,7 @@ public class listeInfraction extends HttpServlet {
 		BanqueInfractions listInfraction = new BanqueInfractions();
 
 		request.setAttribute("infractions", listInfraction.Infractions());
-		this.getServletContext().getRequestDispatcher("/listeInfraction.jsp")
+		this.getServletContext().getRequestDispatcher("/shared/listeInfraction.jsp")
 		.forward(request, response);
 
 	}

@@ -8,5 +8,15 @@
     </head>
     <body>
         <h1>Portail Policier</h1>
+        <ul>			
+			<li><a href="../shared/listeInfraction">Visualiser la liste des infractions existantes dans le système</a></li>
+			<li><a href="../shared/listeDossier">Visualiser la liste des dossiers existants dans le système</a></li>
+			<li>Sélectionner un dossier -> Visualiser les infractions d’un dossier</li>
+			<li>Sélectionner un dossier -> Ajouter une infraction à un dossier</li>			
+		</ul>
+		
+		<form method="link" action="..\logout.jsp">
+			<input type="submit" value="Logout"/>
+		</form>
     </body>
 </html>

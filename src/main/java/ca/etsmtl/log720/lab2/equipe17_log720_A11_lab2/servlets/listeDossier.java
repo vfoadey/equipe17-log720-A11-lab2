@@ -33,7 +33,7 @@ public class listeDossier extends HttpServlet {
 		BanqueDossiers banqueDossier = new BanqueDossiers();
 		request.setAttribute("dossiers", banqueDossier.dossiers());
 
-		this.getServletContext().getRequestDispatcher("/myTest.jsp")
+		this.getServletContext().getRequestDispatcher("/shared/listeDossier.jsp")
 		.forward(request, response);
 	}
 

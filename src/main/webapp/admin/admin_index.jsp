@@ -10,10 +10,10 @@
         <h1>Portail Administrateur</h1>
 		
 		<ul>
-			<li>Ajouter un dossier</li>
-			<li>Ajouter des infractions au système</li>
-			<li>Visualiser la liste des infractions existantes dans le système</li>
-			<li>Visualiser la liste des dossiers existants dans le système</li>
+			<li><a href="ajouterDossier">Ajouter un dossier</a></li>
+			<li><a href="AjouterInfraction">Ajouter des infractions au système</a></li>
+			<li><a href="../shared/listeInfraction">Visualiser la liste des infractions existantes dans le système</a></li>
+			<li><a href="../shared/listeDossier">Visualiser la liste des dossiers existants dans le système</a></li>
 			<li>Sélectionner un dossier -> Visualiser les infractions d’un dossier</li>
 			<li>Fermeture de la session pour permettre la ré-ouverture sous un autre compte</li>
 		</ul>

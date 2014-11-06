@@ -41,14 +41,13 @@ public class AjouterInfraction extends HttpServlet {
 		
 		try {
 			int niveau = Integer.parseInt(request.getParameter("txtNiveau"));
-			banque.ajouterInfraction(request.getParameter("txtDescription"), 1);		
+			banque.ajouterInfraction(request.getParameter("txtDescription"), niveau);	
+			request.setAttribute("message", "Ajout d'une infraction avec succès");
 		} catch (Exception ex){
 			request.setAttribute("message", ex.getMessage());
 			ex.printStackTrace();
 		}
-		//message
-		//request.setAttribute("message","Niveau = " + request.getParameter("txtNiveau") + " et description : " + request.getParameter("txtDescription"));
-		
+
 		this.getServletContext().getRequestDispatcher("/admin/AjouterInfraction.jsp")
 		.forward(request, response);
 		
