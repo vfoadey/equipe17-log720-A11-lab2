@@ -35,21 +35,27 @@
 
 <h3>DEPLOIEMENT</h3>  
   <h4>Package</h4>
-    - Décompresser le dossier de remise dans un endroit qui vous convient.
-    - A partir de votre console, aller dans le répertoir racine du dossier de remise décompresser, c'est a dire dans le dossier equipe17-log720-A11-lab2.
-    - Une fois dans ce dossier, lancer la commande "mvn package". Après quelques secondes, la commande devrait réussire et vous afficher "BUILD SUCCESS".
-    - Une fois la commande exécuter, retourner dans le répertoire racine du dossier de remise, un répertoire "target" devrait maintenant y apparaitre.
-    - Dans ce dossier, vous trouverez le fichier ".war" que la commande package à généré
-    - Copiez ce fichier dans le dossier "webapp" de votre installation de Tomcat.
+    <ul>
+      <li>Décompresser le dossier de remise dans un endroit qui vous convient.</li>
+      <li>A partir de votre console, aller dans le répertoir racine du dossier de remise décompresser, c'est a dire dans le dossier equipe17-log720-A11-lab2.</li>
+      <li>Une fois dans ce dossier, lancer la commande "mvn package". Après quelques secondes, la commande devrait réussire et vous afficher "BUILD SUCCESS".</li>
+      <li>Une fois la commande exécuter, retourner dans le répertoire racine du dossier de remise, un répertoire "target" devrait maintenant y apparaitre.</li>
+      <li>Dans ce dossier, vous trouverez le fichier ".war" que la commande package à généré</li>
+      <li>Copiez ce fichier dans le dossier "webapp" de votre installation de Tomcat.</li>
+    </ul>
   
   <h4>Lancement de l'application</h4>
-    - Copier le fichier tomcat-users.xml fournit dans le dossier de remise sous le répertoire /conf. Ajouter le à votre installation Tomcat, sous le même répertoire /conf.
-    - Aller dans le dossier bin de votre installation Tomcat et lancer le script de démarage "startup".
-    - Dans un browser, diriger vous vers l'address http://localhost:8080/equipe17-log720-A11-lab2
+  <ul>
+    <li>Copier le fichier tomcat-users.xml fournit dans le dossier de remise sous le répertoire /conf. Ajouter le à votre installation Tomcat, sous le même répertoire /conf.</li>
+    <li>Aller dans le dossier bin de votre installation Tomcat et lancer le script de démarage "startup".</li>
+    <li>Dans un browser, diriger vous vers l'adresse http://localhost:8080/equipe17-log720-A11-lab2</li>
+  </ul>
 
   <h4>Utilisation de l'application</h4>
     Utilisez les identifiants suivant afin d'accèder au différente fonctionnalité de l'application :
-      - Agent de police : cop // cop
-      - Administrateur : admin // admin
+    <ul>
+      <li>Agent de police : cop // cop</li>
+      <li>Administrateur : admin // admin</li>
+    </ul>
   
 Vous pouvez maintenant commencer a utiliser l'application !
