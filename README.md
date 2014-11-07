@@ -19,15 +19,6 @@
         Installez une version du serveur Tomcat égale ou supèrieure 7.0.5 à partir de http://tomcat.apache.org/download-70.cgi
         Positionnez la variable CATALINA_HOME avec la valeure du chemin de votre installation
         Rajoutez le répertoire %CATALINA_HOME%\bin dans votre PATH
-        Aller dans le dossier parent de TomCat. Dans le dossier conf, ouvrir le fichier tomcat-users.xml
-        Rajouter les lignes suivantes entres les balises <tomcat-users> et </tomcat-users>
-        <role rolename="policier" />
-        <role rolename="admin" />
-        
-        <user username="cop" password="cop" roles="policier" />
-        <user username="admin" password="admin" roles="admin" />
-        
-        C'est necéssaire pour pouvoir vous authentifier.
         
     - Si vous n'êtes pas dans l'environemment de l'ETS, assurez vous d'avoir activer le VPN vous mettant en relation avec le réseau local
       de l'ETS. le logiciel et les instructions sont disponible a l'adresse suivante: 
