@@ -60,22 +60,22 @@ Après avoir décompressé ce fichier, vous obtenez les répertoires suivants:
 <h3>DEPLOIEMENT</h3>  
 
     <li>Package </li>
-    Pour deploiyer l'appli, lancer votre console en vous assuarant que la variable MAVEN_HOME est bien définit et pointe sur votre installation de Maven comme indiqué en haut. A partir de votre console, aller dans le répertoir racine de l'appli, c'est a dire dans le dossier equipe17-log720-A11-lab2. Une fois dans ce dossier, lancer la commande mvn package. Si vous avez suivi les instruction, la commande devrait réussire et vous afficher "buid succes"
+    Pour deploiyer l'appli, lancer votre console en vous assuarant que la variable MAVEN_HOME est bien définit et pointe sur votre installation de Maven comme indiqué en haut. A partir de votre console, aller dans le répertoir racine de l'appli, c'est a dire dans le dossier equipe17-log720-A11-lab2. Une fois dans ce dossier, lancer la
+    commande mvn package. Si vous avez suivi les instruction, la commande devrait réussire et vous afficher "buid succes"
     Une fois la commande exécuter, aller dans le répertoir racine de l'appli a travaers votre fureteur système.
     vous devrez trouver un nouveau répertoir qui a été créé par Maven. Aller dans ce répertoir et vous y trouverai un fichier au nom de equipe17-log720-A11-lab2-SNAPSHOT-01.jar. Copiez ce fichier dans le dossier webapp contenu dans le dossier parent de votre installation tomcat.
-    
-  <li>Lancer l'appli </li>
-  Aller dans le dossier bin de votre installation tomcat a partir de votre console et lancez le script startup.sh pour démarrer tomcat.
-  Aller a l'adresse http://localhost:8080/equipe17-log720-A11-lab2-SNAPSHOT-01
-  vous devez atterir sur la page d'accueil de l'appli.
-  connectez avec l'un des identifiant suivants selon aue vous voulez avoir un role admin ou agent:
-       - Agent de police
+    <li>Lancer l'appli </li>
+    Aller dans le dossier bin de votre installation tomcat a partir de votre console et lancez le script startup.sh    pour démarrer tomcat.
+    Aller a l'adresse http://localhost:8080/equipe17-log720-A11-lab2-SNAPSHOT-01
+    vous devez atterir sur la page d'accueil de l'appli.
+    connectez avec l'un des identifiant suivants selon aue vous voulez avoir un role admin ou agent:
+        - Agent de police
           identifiant: cop
           password  cop
        - Admin
           identifiant : admin
           password: admin
-
+  
 Vous pouvez maintenant commencer a utiliser l'application !      
 
   
