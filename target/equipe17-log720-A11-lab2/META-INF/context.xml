@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<Context path="/equipe17-log720-A11-lab2" docBase="equipe17-log720-A11-lab2" 
- debug="5" reloadable="true" crossContext="true"> 
- 
- <Resource name="jdbc/equipe17-log720-A11-lab2" auth="Container" type="javax.sql.DataSource" 
- maxActive="100" maxIdle="30" maxWait="10000" username="am51280" 
- password="Log7203" driverClassName="org.postgresql.Driver" 
- url="jdbc:postgresql://log720.logti.etsmtl.ca:5432/log720_20143_17"/> 
-</Context>
