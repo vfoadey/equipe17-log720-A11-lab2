@@ -1,29 +1,5 @@
 
 <h3>REPERTOIRES</h3>
-
-Après avoir décompressé ce fichier, vous obtenez les répertoires suivants:
-  
-  <pre><code>   
-  +
-  +-README.md                  : le fichier que vous êtes en train de lire
-  |
-  +-src 
-  |
-  |   +main : code source de l'application equipe17-log720-A11-lab2 
-  |   |   +-Java : contient les beans et les servlets
-  |   |   |
-  |   |   +-webapp
-  |   |   |   +-WEB-INF : contient les différentes pages jsp 
-  |   |   |   |
-  |   |   |   + META-INF : contient le fichier context xml pour la definition du data source pour JNDI
-  |   |   +-agent : contient les ressources accessibles par le rôle agent. C'est à dire les agents de police.
-  |   |   |
-  |   |   +-admin : contient les ressources disponibles pour le role admin. C'est a dire les administrateurs
-  |   |   |
-  |   |   +-shared : contient les ressources disponibles pour les deux roles
-  |   |   |
-  +-pom.xml : fichier de configuration de l'application
-  </code></pre>
   
  <h3>INSTALLATIONS ET CONFIGURATIONS</h3>
  
@@ -58,24 +34,22 @@ Après avoir décompressé ce fichier, vous obtenez les répertoires suivants:
       http://www.etsmtl.ca/Services/sTI/Etudiants/Reseau-et-Communication/RPV
 
 <h3>DEPLOIEMENT</h3>  
-
-    <li>Package </li>
-    Pour deploiyer l'appli, lancer votre console en vous assuarant que la variable MAVEN_HOME est bien définit et pointe sur votre installation de Maven comme indiqué en haut. A partir de votre console, aller dans le répertoir racine de l'appli, c'est a dire dans le dossier equipe17-log720-A11-lab2. Une fois dans ce dossier, lancer la
-    commande mvn package. Si vous avez suivi les instruction, la commande devrait réussire et vous afficher "buid succes"
-    Une fois la commande exécuter, aller dans le répertoir racine de l'appli a travaers votre fureteur système.
-    vous devrez trouver un nouveau répertoir qui a été créé par Maven. Aller dans ce répertoir et vous y trouverai un fichier au nom de equipe17-log720-A11-lab2-SNAPSHOT-01.jar. Copiez ce fichier dans le dossier webapp contenu dans le dossier parent de votre installation tomcat.
-    <li>Lancer l'appli </li>
-    Aller dans le dossier bin de votre installation tomcat a partir de votre console et lancez le script startup.sh    pour démarrer tomcat.
-    Aller a l'adresse http://localhost:8080/equipe17-log720-A11-lab2-SNAPSHOT-01
-    vous devez atterir sur la page d'accueil de l'appli.
-    connectez avec l'un des identifiant suivants selon aue vous voulez avoir un role admin ou agent:
-        - Agent de police
-          identifiant: cop
-          password  cop
-       - Admin
-          identifiant : admin
-          password: admin
+  <h4>Package</h4>
+    - Décompresser le dossier de remise dans un endroit qui vous convient.
+    - A partir de votre console, aller dans le répertoir racine du dossier de remise décompresser, c'est a dire dans le dossier equipe17-log720-A11-lab2.
+    - Une fois dans ce dossier, lancer la commande "mvn package". Après quelques secondes, la commande devrait réussire et vous afficher "BUILD SUCCESS".
+    - Une fois la commande exécuter, retourner dans le répertoire racine du dossier de remise, un répertoire "target" devrait maintenant y apparaitre.
+    - Dans ce dossier, vous trouverez le fichier ".war" que la commande package à généré
+    - Copiez ce fichier dans le dossier "webapp" de votre installation de Tomcat.
   
-Vous pouvez maintenant commencer a utiliser l'application !      
+  <h4>Lancement de l'application</h4>
+    - Copier le fichier tomcat-users.xml fournit dans le dossier de remise sous le répertoire /conf. Ajouter le à votre installation Tomcat, sous le même répertoire /conf.
+    - Aller dans le dossier bin de votre installation Tomcat et lancer le script de démarage "startup".
+    - Dans un browser, diriger vous vers l'address http://localhost:8080/equipe17-log720-A11-lab2
 
+  <h4>Utilisation de l'application</h4>
+    Utilisez les identifiants suivant afin d'accèder au différente fonctionnalité de l'application :
+      - Agent de police : cop // cop
+      - Administrateur : admin // admin
   
+Vous pouvez maintenant commencer a utiliser l'application !
