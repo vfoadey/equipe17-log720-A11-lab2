@@ -14,9 +14,7 @@
 			<li><a href="AjouterInfraction">Ajouter des infractions au système</a></li>
 			<li><a href="../shared/listeInfraction">Visualiser la liste des infractions existantes dans le système</a></li>
 			<li><a href="../shared/listeDossier">Visualiser la liste des dossiers existants dans le système</a></li>
-			<li>Sélectionner un dossier -> Visualiser les infractions d’un dossier</li>
-			<li>Fermeture de la session pour permettre la ré-ouverture sous un autre compte</li>
-		</ul>
+			</ul>
 
 		<form method="link" action="..\logout.jsp">
 			<input type="submit" value="Logout"/>

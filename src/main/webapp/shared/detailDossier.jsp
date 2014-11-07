@@ -23,7 +23,7 @@
 		List<Infraction> listbox = (List<Infraction>) request
 				.getAttribute("listbox");
 	%>
-
+	
 	<table border="1">
 		<tr>
 			<td>Nom</td>
@@ -58,7 +58,7 @@
 			</td>
 		</tr>
 	</table>
-
+	<h1>Tableau des infractions commise</h1>
 	<table border="1">
 		<c:forEach var="infraction" items="${infractions}">
 			<tr>
@@ -72,6 +72,7 @@
 	<%
 		if (request.isUserInRole("policier")) {
 	%>
+	<h1>Formulaire pour ajouter une infraction au dossier</h1>
 	<form action="detailDossier" method="post">
 	<input type="hidden" value= "<%
 					out.print(dossier.idDossier());
